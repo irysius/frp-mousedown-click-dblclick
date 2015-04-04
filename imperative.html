@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FRP blueprints: Mousedown, Click, DblClick</title>
+	<link rel="stylesheet" type="text/css" href="site.css">
+</head>
+<body>
+	<div>
+		<p class="paragraph" id="paragraph-a">Interact with paragraph A.</p>
+		<p class="paragraph" id="paragraph-b">Interact with paragraph B.</p>
+		<p class="paragraph" id="paragraph-c">Interact with paragraph C.</p>
+	</div>
+	<div>
+		<p>Last captured event is: <span id="event-type"></span></p>
+		<p><span class="tab"></span>at: <span id="event-position"></span></p>
+		<p><span class="tab"></span>on: <span id="event-paragraph"></span></p>
+	</div>
+	<script type="text/javascript" src="utils.js"></script>
+	<script type="text/javascript" src="lib/clickwrapper.js"></script>
+	<script>
+		var paragraphs = document.getElementsByClassName('paragraph');
+
+		var wrapper = new ClickWrapper(paragraphs);
+
+		function generateAsPayload(eventType) {
+			return function asPayload(event) {
+				return {
+					type: eventType,
+					position: {
+						x: event.clientX,
+						y: event.clientY
+					},
+					paragraph: this.id
+				};
+			}
+		}
+
+		wrapper.on('click', function (event) {
+			var payload = generateAsPayload('click').call(this, event);
+			updateWithPayload(payload);
+		});
+
+		wrapper.on('dblclick', function (event) {
+			var payload = generateAsPayload('dblclick').call(this, event);
+			updateWithPayload(payload);
+		});
+
+		wrapper.on('mousedown', function (event) {
+			var payload = generateAsPayload('mousedown').call(this, event);
+			updateWithPayload(payload);
+		});
+	</script>
+</body>
+</html>

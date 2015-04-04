@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FRP blueprints: Mousedown, Click, DblClick</title>
+	<link rel="stylesheet" type="text/css" href="site.css">
+</head>
+<body>
+	<div>
+		<p id="paragraph-a">Interact with paragraph A.</p>
+		<p id="paragraph-b">Interact with paragraph B.</p>
+		<p id="paragraph-c">Interact with paragraph C.</p>
+	</div>
+	<div>
+		<p>Last captured event is: <span id="event-type"></span></p>
+		<p><span class="tab"></span>at: <span id="event-position"></span></p>
+		<p><span class="tab"></span>on: <span id="event-paragraph"></span></p>
+	</div>
+	<script type="text/javascript" src="utils.js"></script>
+	<script>
+		updateWithPayload({
+			type: 'N/A',
+			position: null,
+			paragraph: 'N/A'
+		});
+	</script>
+</body>
+</html>
